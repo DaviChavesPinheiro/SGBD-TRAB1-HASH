@@ -20,3 +20,13 @@ class Database:
 
         # Adiciona ao indice
         self.indice.add_entrada(ano, self.next_dado)
+
+    def bus_registro(self, ano):
+        entradas = self.indice.bus_entrada(ano)
+
+        with open(self.dados_path, 'r') as f:
+            dados = f.readlines()
+        registros = []
+        for i in range(len(entradas)):
+            registros.append(dados[int(entradas[i].strip().split(',')[1]) - 1])
+        return registros

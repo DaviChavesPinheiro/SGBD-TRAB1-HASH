@@ -77,10 +77,19 @@ class Indice:
                     
                     # Faz uma chamada recursiva para alocar a entrada no novo bucket
                     self.add_entrada(ano, p_registro)
-        print(self.diretorio)
     
     # Duplica o diretorio atual        
     def duplicar_diretorio(self):
         for i in range(2 ** self.pg, 2 ** (self.pg + 1)):
             self.diretorio.append(self.pg)
-    
+
+    def bus_entrada(self, ano):
+        hs = hash(ano)
+        # Indice do diretorio. ex: (1980 % 4 = 0) == (11110111100 % 100 = 00)
+        index = hs % (2 ** self.pg)
+        
+        # Lê o bucket
+        Page.read("./buckets/{}.txt".format(index))
+        bucket = Page.data
+        bucket = list(filter(lambda line: line.strip() != "", bucket))
+        return list(filter(lambda line: int(line.split(',')[0]) == ano, bucket))
