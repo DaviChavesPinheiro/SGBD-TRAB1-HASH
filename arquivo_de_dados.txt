@@ -1,3 +1,5 @@
 0,teste,1980,tinto
 0,teste,2000,tinto
+0,teste,2004,tinto
+0,teste,2008,tinto
 1,teste2,2001,branco
