@@ -91,5 +91,28 @@ class Indice:
         # Lê o bucket
         Page.read("./buckets/{}.txt".format(index))
         bucket = Page.data
+        # Remove as linhas vazias
         bucket = list(filter(lambda line: line.strip() != "", bucket))
+        # Retorna as entradas que possuem ano X
         return list(filter(lambda line: int(line.split(',')[0]) == ano, bucket))
+   
+    def del_entrada(self, ano):
+        hs = hash(ano)
+        # Indice do diretorio. ex: (1980 % 4 = 0) == (11110111100 % 100 = 00)
+        index = hs % (2 ** self.pg)
+        
+        # Lê o bucket
+        Page.read("./buckets/{}.txt".format(index))
+        bucket = Page.data
+        # Remove as linhas vazias
+        bucket = list(filter(lambda line: line.strip() != "", bucket))
+        # Filtra as entradas que vão ser deletadas
+        del_entradas = list(filter(lambda line: int(line.split(',')[0]) == ano, bucket))
+        # Remove as entradas que devem ser deletadas
+        bucket = list(filter(lambda line: int(line.split(',')[0]) != ano, bucket))
+        # Salva no bucket
+        Page.data = bucket 
+        Page.write("./buckets/{}.txt".format(index))
+
+        return del_entradas
+
