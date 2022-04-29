@@ -41,8 +41,7 @@ class Indice:
         Page.write("./buckets/{}.txt".format(index))
 
         # Se o bucket está cheio
-        # TODO: MUDAR PARA 32
-        if(len(bucket) == 3):
+        if(len(bucket) == 32):
             prf_local = self.diretorio[index]
 
             if(prf_local == self.pg):
@@ -59,8 +58,7 @@ class Indice:
             Page.write("./buckets/{}.txt".format(index_novo))
             
             # Redistribui as entradas do bucket cheio
-            # TODO: MUDAR PARA 32
-            for i in range(3):
+            for i in range(32):
                 # Lê o bucket cheio
                 Page.read("./buckets/{}.txt".format(index))
                 bucket = Page.data
@@ -77,6 +75,8 @@ class Indice:
                     
                     # Faz uma chamada recursiva para alocar a entrada no novo bucket
                     self.add_entrada(ano, p_registro)
+        # Retorna profundidade global e profundidade local
+        return (self.pg, self.diretorio[index])
     
     # Duplica o diretorio atual        
     def duplicar_diretorio(self):
@@ -114,5 +114,5 @@ class Indice:
         Page.data = bucket 
         Page.write("./buckets/{}.txt".format(index))
 
-        return del_entradas
+        return (del_entradas, self.pg, self.diretorio[index])
 

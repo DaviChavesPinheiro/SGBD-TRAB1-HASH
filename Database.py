@@ -19,7 +19,7 @@ class Database:
             self.next_dado += 1
 
         # Adiciona ao indice
-        self.indice.add_entrada(ano, self.next_dado)
+        return self.indice.add_entrada(ano, self.next_dado)
 
     def bus_registro(self, ano):
         # Entradas encontradas
@@ -31,11 +31,11 @@ class Database:
         registros = []
         for i in range(len(entradas)):
             registros.append(dados[int(entradas[i].strip().split(',')[1]) - 1])
-        return registros
+        return len(registros)
 
     def del_registro(self, ano):
         # Entradas deletadas do indice hash
-        entradas = self.indice.del_entrada(ano)
+        entradas, pg, pl = self.indice.del_entrada(ano)
         
         with open(self.dados_path, 'r') as f:
            dados = f.readlines()
@@ -47,5 +47,5 @@ class Database:
         with open(self.dados_path, 'w') as f:
            f.writelines(dados)
 
-        return entradas
+        return (pg, pl)
 
