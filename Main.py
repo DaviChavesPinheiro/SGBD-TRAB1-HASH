@@ -25,8 +25,8 @@ inputs = read_input('in.txt')
 with open('out.txt', 'w') as f:
     for input in inputs:
         cmd, ano = input
-        # registros = search_in_csv(ano)
-        registros = [[0, "teste", 2013, "tinto"], [1, "teste", 2013, "tinto"], [2, "teste", 2013, "tinto"]]
+        registros = search_in_csv(ano)
+        # registros = [[0, "teste", 2013, "tinto"], [1, "teste", 2013, "tinto"], [2, "teste", 2013, "tinto"]]
         quantidade_tuplas = len(registros)
 
         for registro in registros:

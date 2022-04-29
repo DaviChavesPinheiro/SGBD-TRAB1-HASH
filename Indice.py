@@ -87,6 +87,9 @@ class Indice:
         hs = hash(ano)
         # Indice do diretorio. ex: (1980 % 4 = 0) == (11110111100 % 100 = 00)
         index = hs % (2 ** self.pg)
+        prf = self.diretorio[index]
+        if(prf != self.pg):
+            index = hs % (2 ** prf)
         
         # Lê o bucket
         Page.read("./buckets/{}.txt".format(index))
@@ -100,7 +103,9 @@ class Indice:
         hs = hash(ano)
         # Indice do diretorio. ex: (1980 % 4 = 0) == (11110111100 % 100 = 00)
         index = hs % (2 ** self.pg)
-        
+        prf = self.diretorio[index]
+        if(prf != self.pg):
+            index = hs % (2 ** prf)
         # Lê o bucket
         Page.read("./buckets/{}.txt".format(index))
         bucket = Page.data
